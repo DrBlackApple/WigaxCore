@@ -1,0 +1,15 @@
+{
+	"name": "wigax/core",
+	"description": "The core of the Wigax framework",
+	"keywords": ["Wigax", "framework", "kernel"],
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"require": {
+		"php": ">=7.1"
+	},
+	"autoload": {
+		"psr-4": {
+            "Wigax\\": "src/"
+        }
+	},
+	"minimum-stability": "dev"
+}
