@@ -48,9 +48,15 @@
 			$this->real_url = $url;
 		}
 
+		public function setParam($param) {
+			$this->real_url = preg_replace('#\(\\\\w\*\)#', $param, $this->url);
+		}
+
 		public function getField($name) {
-			preg_match_all('#'.$this->var_fields[$name].'#', $this->real_url, $out);
-			return $out[1][0];
+			if(preg_match_all('#'.$this->var_fields[$name].'#', $this->real_url, $out))
+				return $out[1][0];
+			else
+				return "";
 		}
 
 		public function isRedirection() {
@@ -59,6 +65,10 @@
 
 		public function getUrl() {
 			return $this->url;
+		}
+
+		public function getRealUrl() {
+			return $this->real_url;
 		}
 
 		public function getName() {

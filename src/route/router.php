@@ -10,13 +10,16 @@
 
 		private $assets = array();
 
+		private $res;
+
 		public function __construct (&$res) {
-			$this->routes = $res->get('routes');
-			$this->events = $res->get('events');
-			$this->assets = $res->get('assets');
+			$this->res = $res;
 		}
 
 		public function &route() {
+			$this->routes = $this->res->get('routes');
+			$this->events = $this->res->get('events');
+			$this->assets = $this->res->get('assets');
 			$type = $_SERVER['REQUEST_METHOD'];
 			$url = urldecode(preg_replace("#\#(.+)#", "", preg_replace("#\?(.+)#", "", $_SERVER['REQUEST_URI'])));
 			$headers = apache_request_headers();;
@@ -41,6 +44,7 @@
 					}
 				}
 			}
+
 			header("HTTP/1.1 404");
 			exit;
 		}
