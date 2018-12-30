@@ -33,7 +33,12 @@
 				unset($elements['title']);
 			} else
 				$t = "";
-			$out .= $this->buildHead($t);
+			if(isset($elements['url'])) {
+				$u = $elements['url'];
+				unset($elements['url']);
+			} else
+				$u = "";
+			$out .= $this->buildHead($t, $u);
 			$out .= '<data>';
 			$i = 1;
 			foreach ($elements as $key => $val) {
@@ -48,7 +53,7 @@
 
 		public function buildAjaxRedirectionResponse (&$html, $route) {
 			$out = $this->start_xml;
-			$html = preg_replace("#^<!.* html>#", "", $html);
+			$html = preg_replace("#^<!\w* html>#", "", $html);
 			$out .= '<main url="'.$route->getRealUrl().'">' . $html . '</main>';
 			return $out;
 		}
@@ -56,7 +61,8 @@
 		public function buildEventScript (&$html, $events) {
 			$add = '<script type="text/javascript">';
 			foreach ($events as $key => $e) {
-				$add .= '$("#' . $e->getId() . '").on("' . $e->getAction() . '", function () {sendEvent(this, "'.$e->getAction().'")});';
+				$fonc = $e->getAction() == 'submit' ? 'sendForm' : 'sendEvent';
+				$add .= '$("#' . $e->getId() . '").on("' . $e->getAction() . '", function () {'. $fonc .'(this, "'.$e->getAction().'");return false;});';
 			}
 			$add .= '</script></body>';
 			$html = preg_replace("#</body>#", $add, $html);
