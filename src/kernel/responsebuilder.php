@@ -70,7 +70,8 @@
 		}
 
 		public function addJs (&$html) {
-			$html = preg_replace('#</body>#', '<script src="' . $this->jquery_cdn . '"></script><script src="' . $this->wigax_js . '"></script></body>', $html);
+			$html = preg_replace('#</body>#', '<script src="' . $this->jquery_cdn . '" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			crossorigin="anonymous"></script><script src="' . $this->wigax_js . '"></script></body>', $html);
 			return $this;
 		}
 

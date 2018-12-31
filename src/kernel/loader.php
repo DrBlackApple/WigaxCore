@@ -19,9 +19,10 @@
 
 		public function call($call, &$kernel) {
 			$this->kernel = $kernel;
-			if ($call instanceof \Wigax\Route\Asset) 
+			if ($call instanceof \Wigax\Route\Asset) {
+				header('content-type: text/' . $call->getType() . '; charset=UTF-8;');
 				return file_get_contents($call->getRealPath());
-			else if ($call->isRedirection()){
+			} else if ($call->isRedirection()){
 				if(!($call instanceof \Wigax\Route\Event)) 
 					header("HTTP/1.1 301");
 				return $kernel->redirectToRoute($call->getController());

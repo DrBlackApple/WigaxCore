@@ -39,6 +39,7 @@
 					$_SESSION['res']->delete('events');
 				$_SESSION['back_page'] = $call;
 			}
+			
 			if(is_object($call)) {
 				$ret = $this->loader->call($call, $this);
 				if(is_array($ret)) {
